@@ -1,22 +1,30 @@
-﻿namespace Finstro.CodingExercise.BusinessRules
+﻿// -----------------------------------------------------------------------
+// <copyright file="IsCardNumberValid.cs" company="Jifferson Newsom">
+// Copyright (c) Jifferson Newsom. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+namespace Finstro.CodingExercise.BusinessRules
 {
+    using DomainValidation.Validation;
+    using Finstro.CodingExercise.BusinessRules.Validators;
+    using Finstro.CodingExercise.DomainEntity;
+
     /// <summary>
-    /// Performs a Mod-10/LUHN check on the passed number and returns true if the check passed
+    /// The class that validates the card number.
     /// </summary>
-    /// <param name="cardNumber">A 16 digit card number</param>
-    /// <returns>true if the card number is valid, otherwise false</returns>
-    /// <remarks>
-    /// Refer here for MOD10 algorithm: https://en.wikipedia.org/wiki/Luhn_algorithm
-    /// </remarks>
-    public class IsCardNumberValid : IBusinessRule
+    /// <seealso cref="IBusinessRule"/>
+    public class IsCardNumberValid : Validator<CreditCard> // IBusinessRule<CreditCard>
     {
-        public IsCardNumberValid(string cardNumber)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="IsCardNumberValid"/> class.
+        /// Performs a Mod-10/LUHN check on the passed number and returns true if the check passed.
+        /// </summary>
+        /// <remarks>
+        /// Refer here for MOD10 algorithm: https://en.wikipedia.org/wiki/Luhn_algorithm.
+        /// </remarks>
+        public IsCardNumberValid()
         {
-            throw new System.NotImplementedException();
-        }
-        public bool Validate()
-        {
-            throw new System.NotImplementedException();
+            this.Add("CardNumberMOD10Validator", new Rule<CreditCard>(new CardNumberMOD10Validator(), "The card number is invalid."));
         }
     }
 }

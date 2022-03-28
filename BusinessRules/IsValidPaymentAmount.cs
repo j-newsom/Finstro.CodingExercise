@@ -1,22 +1,31 @@
-﻿namespace Finstro.CodingExercise.BusinessRules
+﻿// -----------------------------------------------------------------------
+// <copyright file="IsValidPaymentAmount.cs" company="Jifferson Newsom">
+// Copyright (c) Jifferson Newsom. All rights reserved.
+// </copyright>
+// -----------------------------------------------------------------------
+namespace Finstro.CodingExercise.BusinessRules
 {
-    public class IsValidPaymentAmount : IBusinessRule
+    using DomainValidation.Validation;
+    using Finstro.CodingExercise.BusinessRules.Validators;
+    using Finstro.CodingExercise.DomainEntity;
+
+    /// <summary>
+    /// The class that validates the payment amount.
+    /// </summary>
+    /// <seealso cref="IBusinessRule"/>
+    public class IsValidPaymentAmount : Validator<CreditCard> // IBusinessRule<CreditCard>
     {
         /// <summary>
-		/// Checks if the amount represents a valid payment amount 
-		/// </summary>
-		/// <param name="amount">An amount value in cents (1 Dollar = 100 cents)</param>
-		/// <remarks>
-		/// Validation:
-		/// The amount must be between 99 cents and 99999999 cents
-		/// </remarks>
-        public IsValidPaymentAmount(long amount)
+        /// Initializes a new instance of the <see cref="IsValidPaymentAmount"/> class.
+        /// Checks if the amount represents a valid payment amount.
+        /// </summary>
+        /// <remarks>
+        /// Validation:
+        /// The amount must be between 99 cents and 99999999 cents.
+        /// </remarks>
+        public IsValidPaymentAmount() // long amount
         {
-            throw new System.NotImplementedException();
-        }
-        public bool Validate()
-        {
-            throw new System.NotImplementedException();
+            this.Add("PaymentAmountValidator", new Rule<CreditCard>(new PaymentAmountValidator(), "The payment amount is invalid."));
         }
     }
 }
